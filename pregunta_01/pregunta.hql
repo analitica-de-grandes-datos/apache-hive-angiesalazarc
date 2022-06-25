@@ -13,23 +13,24 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
-DROP TABLE IF EXISTS count_words;
+DROP TABLE IF EXISTS word_counts;
 
-CREATE TABLE count_words (letra       STRING,
-                          fecha       DATE,
-                          numero       INT)
+CREATE TABLE word_counts (letter        STRING,
+                          dates         DATE,
+                          number        INT)
 
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
 
-LOAD DATA INPATH "data.tsv" OVERWRITE INTO TABLE count_words;
+LOAD DATA LOCAL INPATH "data.tsv" OVERWRITE INTO TABLE word_counts;
 
-SELECT letra, count(1) AS count
-FROM count_words
+INSERT OVERWRITE LOCAL DIRECTORY 'output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+
+    SELECT letter, count(1) AS count
+    FROM word_counts
 GROUP BY
-    letra
+    letter
 ORDER BY
-    letra;
-
-INSERT OVERWRITE LOCAL DIRECTORY 'output' ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+    letter;
 
     
