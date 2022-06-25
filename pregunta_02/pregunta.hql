@@ -20,7 +20,7 @@ CREATE TABLE orden_table (letra       STRING,
 
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
 
-LOAD DATA INPATH "data.tsv" OVERWRITE INTO TABLE orden_table;
+LOAD DATA LOCAL INPATH "data.tsv" OVERWRITE INTO TABLE orden_table;
 
 SELECT *
 FROM orden_table
