@@ -44,3 +44,6 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
+SELECT DISTINCT letter
+FROM
+    (SELECT EXPLODE(c5) AS letter FROM tbl0);
