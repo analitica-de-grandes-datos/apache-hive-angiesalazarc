@@ -21,7 +21,7 @@ CREATE TABLE count_words (letra       STRING,
 
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
 
-LOAD DATA INPATH 'data.tsv' OVERWRITE INTO TABLE count_words;
+LOAD DATA INPATH "data.tsv" OVERWRITE INTO TABLE count_words;
 
     SELECT letra, count(1) AS count
     FROM
