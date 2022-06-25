@@ -29,4 +29,4 @@ ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
     SELECT *
     FROM orden_table
 ORDER BY
-    letter, dates, number;
+    letter, number, dates;
