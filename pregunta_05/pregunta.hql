@@ -48,7 +48,9 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 INSERT OVERWRITE LOCAL DIRECTORY 'output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 
-SELECT YEAR(c4) AS year1, COUNT(letter) AS contar
-FROM tbl0
-LATERAL VIEW explode(c5) tbl0 AS letter
+SELECT YEAR(c4) AS year_1, letter, count(letter) AS count
+FROM 
+    tbl0
+LATERAL VIEW
+    EXPLODE(c5) tbl0 AS letter
 GROUP BY YEAR(c4), letter;
