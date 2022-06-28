@@ -44,3 +44,25 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
+DROP TABLE IF EXISTS letras;
+DROP TABLE IF EXISTS unicos;
+
+CREATE TABLE letras (num        INT,
+                     letter     STRING,
+                     number     INT,
+                     fecha      DATE,
+                     dic        STRING,
+                     dicnum     STRING)
+
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+
+LOAD DATA LOCAL INPATH "data0.csv" OVERWRITE INTO TABLE letras;
+
+CREATE TABLE unicos
+AS SELECT DISTINCT letters FROM(SELECT explode(split(dic, ":")) AS letters FROM letras) w
+ORDER BY
+    letters;
+
+INSERT OVERWRITE LOCAL DIRECTORY 'output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT * FROM unicos;

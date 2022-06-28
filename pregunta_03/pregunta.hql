@@ -14,4 +14,20 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
         >>> Escriba su respuesta a partir de este punto <<<
 */
 
+DROP TABLE IF EXISTS orden_number;
 
+CREATE TABLE orden_number (letter        STRING,
+                          dates         DATE,
+                          number        INT)
+
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
+
+LOAD DATA LOCAL INPATH "data.tsv" OVERWRITE INTO TABLE orden_number;
+
+INSERT OVERWRITE LOCAL DIRECTORY 'output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+
+    SELECT DISTINCT number
+    FROM orden_number
+ORDER BY
+    number LIMIT 5;
