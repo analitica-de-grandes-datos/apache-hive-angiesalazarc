@@ -36,8 +36,13 @@ LOAD DATA LOCAL INPATH 'data.tsv' INTO TABLE t0;
 INSERT OVERWRITE LOCAL DIRECTORY 'output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 
-SELECT letra, letras, COUNT(letras) AS cuenta
+SELECT 
+    letter, 
+    letters,
+    count(letters) AS conteo
 FROM t0
-LATERAL VIEW EXPLODE(c2) t0 AS letra
-LATERAL VIEW EXPLODE(c3) t0 AS letras, numeros
-GROUP BY letra, letras;
+LATERAL VIEW
+    EXPLODE(c2) t0 AS letter
+LATERAL VIEW
+    EXPLODE(c3) t0 AS letters, numbers
+GROUP BY letter, letters;
